@@ -20,9 +20,7 @@ class MainApp extends StatelessWidget {
         brightness: Brightness.dark,
       ),
       home: Scaffold(
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
+        body: ListView(
           children: [
             CyberpunkOutlinedButton(
               text: 'RUN',
