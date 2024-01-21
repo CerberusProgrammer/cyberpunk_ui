@@ -1,6 +1,7 @@
 import 'package:cyberpunk_ui/buttons/cyberpunk_filled_button.dart';
 import 'package:cyberpunk_ui/buttons/cyberpunk_outlined_button.dart';
 import 'package:cyberpunk_ui/buttons/cyberpunk_text_button.dart';
+import 'package:cyberpunk_ui/cards/cyberpunk_filled_card.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -36,10 +37,14 @@ class MainApp extends StatelessWidget {
               text: 'RUN',
               onTap: () {},
             ),
-            FilledButton(
-              onPressed: () {},
-              child: const Text('hwwwwwwwi'),
-            ),
+            const CyberpunkFilledCard(
+              title: '01.01.2077',
+              subtitle: 'Goodmorning, Night City!',
+              content:
+                  'Yesterday’s body count lottery rounded out to a solid ‘n’ sturdy thirty!',
+              accentColor: Colors.redAccent,
+              icon: Icons.abc,
+            )
           ],
         ),
       ),
