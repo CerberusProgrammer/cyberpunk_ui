@@ -94,7 +94,10 @@ class _CyberpunkOutlinedButtonState extends State<CyberpunkOutlinedButton>
       },
       child: GestureDetector(
         onTapDown: (details) => setState(() => _isPressed = true),
-        onTapUp: (details) => setState(() => _isPressed = false),
+        onTapUp: (details) {
+          setState(() => _isPressed = false);
+          _controller.reverse(); // Añade esta línea
+        },
         onTapCancel: () => setState(() => _isPressed = false),
         onTap: widget.onTap,
         child: AnimatedBuilder(
