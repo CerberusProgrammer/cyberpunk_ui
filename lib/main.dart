@@ -22,6 +22,11 @@ class MainApp extends StatelessWidget {
               text: 'aas',
               onTap: () {},
             ),
+            Cell(
+              icon: Icons.ac_unit,
+              text: 'aceptar',
+              onTap: () {},
+            ),
           ],
         ),
       ),
