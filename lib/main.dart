@@ -18,15 +18,11 @@ class MainApp extends StatelessWidget {
       home: Scaffold(
         body: Column(
           children: [
-            Cell(
-              text: 'aas',
-              onTap: () {},
-            ),
-            Cell(
-              icon: Icons.ac_unit,
-              text: 'aceptar',
-              onTap: () {},
-            ),
+            Cell(text: 'a', onTap: () {}),
+            Cell(text: 'aa', onTap: () {}),
+            Cell(text: 'aaa', onTap: () {}),
+            Cell(text: 'aaaaaaaaa', onTap: () {}),
+            Cell(icon: Icons.ac_unit, text: 'aceptar', onTap: () {}),
           ],
         ),
       ),
