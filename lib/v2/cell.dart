@@ -4,6 +4,7 @@ class Cell extends StatefulWidget {
   final String text;
   final IconData? icon;
   final Color accentColor;
+  final Color backgroundColor;
   final Color onHoverColor;
   final Color onClickColor;
   final VoidCallback onTap;
@@ -12,7 +13,8 @@ class Cell extends StatefulWidget {
     super.key,
     required this.text,
     this.icon,
-    this.accentColor = Colors.redAccent,
+    this.accentColor = const Color.fromARGB(255, 247, 79, 73),
+    this.backgroundColor = const Color.fromARGB(255, 14, 14, 23),
     this.onHoverColor = Colors.blue,
     this.onClickColor = Colors.blueAccent,
     required this.onTap,
@@ -96,7 +98,8 @@ class CellShapePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
       ..color = color
-      ..style = PaintingStyle.fill;
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2.0;
 
     final path = Path();
     path.moveTo(0, 0);
@@ -106,6 +109,11 @@ class CellShapePainter extends CustomPainter {
     path.lineTo(0, size.height);
     path.close();
 
+    canvas.drawPath(path, paint);
+
+    paint
+      ..color = color.withOpacity(0.2)
+      ..style = PaintingStyle.fill;
     canvas.drawPath(path, paint);
   }
 
