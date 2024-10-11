@@ -43,24 +43,24 @@ class CyberpunkOutlinedButton extends StatefulWidget {
   final VoidCallback onTap;
 
   const CyberpunkOutlinedButton({
-    Key? key,
+    super.key,
     required this.text,
     this.accentColor = Colors.redAccent,
     this.onHoverColor = Colors.blue,
     this.onClickColor = Colors.blueAccent,
     required this.onTap,
     this.icon,
-  }) : super(key: key);
+  });
 
   const CyberpunkOutlinedButton.icon({
-    Key? key,
+    super.key,
     required this.text,
     required this.icon,
     this.accentColor = Colors.redAccent,
     this.onHoverColor = const Color.fromARGB(255, 30, 43, 53),
     this.onClickColor = Colors.blueAccent,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   State<CyberpunkOutlinedButton> createState() =>
