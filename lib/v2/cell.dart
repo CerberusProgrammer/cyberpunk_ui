@@ -3,20 +3,16 @@ import 'package:flutter/material.dart';
 class Cell extends StatefulWidget {
   final String text;
   final IconData? icon;
-  final Color accentColor;
+  final Color color;
   final Color backgroundColor;
-  final Color onHoverColor;
-  final Color onClickColor;
   final VoidCallback onTap;
 
   const Cell({
     super.key,
     required this.text,
     this.icon,
-    this.accentColor = const Color.fromARGB(255, 247, 79, 73),
+    this.color = const Color.fromARGB(255, 247, 79, 73),
     this.backgroundColor = const Color.fromARGB(255, 14, 14, 23),
-    this.onHoverColor = Colors.blue,
-    this.onClickColor = Colors.blueAccent,
     required this.onTap,
   });
 
@@ -27,16 +23,22 @@ class Cell extends StatefulWidget {
 class _CellState extends State<Cell> with SingleTickerProviderStateMixin {
   bool _isPressed = false;
   late AnimationController _controller;
-  late Animation _colorTween;
+  late Animation<Color?> _outlineColorTween;
+  late Animation<Color?> _overlayColorTween;
 
   @override
   void initState() {
     super.initState();
     _controller = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 200));
-    _colorTween =
-        ColorTween(begin: widget.accentColor, end: widget.onHoverColor)
-            .animate(_controller);
+    _outlineColorTween = ColorTween(
+            begin: widget.color.withOpacity(0.2),
+            end: widget.color.withOpacity(0.7))
+        .animate(_controller);
+    _overlayColorTween = ColorTween(
+            begin: widget.color.withOpacity(0.0),
+            end: widget.color.withOpacity(0.1))
+        .animate(_controller);
   }
 
   @override
@@ -54,10 +56,16 @@ class _CellState extends State<Cell> with SingleTickerProviderStateMixin {
         onTapCancel: () => setState(() => _isPressed = false),
         onTap: widget.onTap,
         child: AnimatedBuilder(
-          animation: _colorTween,
+          animation: _controller,
           builder: (context, child) => CustomPaint(
             painter: CellShapePainter(
-                color: _isPressed ? widget.onClickColor : _colorTween.value),
+                outlineColor: _isPressed
+                    ? widget.color.withOpacity(1)
+                    : _outlineColorTween.value!,
+                backgroundColor: widget.backgroundColor,
+                overlayColor: _isPressed
+                    ? widget.color.withOpacity(0.7)
+                    : _overlayColorTween.value!),
             child: IntrinsicWidth(
               child: Container(
                 padding: const EdgeInsets.symmetric(
@@ -90,14 +98,20 @@ class _CellState extends State<Cell> with SingleTickerProviderStateMixin {
 }
 
 class CellShapePainter extends CustomPainter {
-  final Color color;
+  final Color outlineColor;
+  final Color backgroundColor;
+  final Color overlayColor;
 
-  CellShapePainter({required this.color});
+  CellShapePainter({
+    required this.outlineColor,
+    required this.backgroundColor,
+    required this.overlayColor,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = color
+      ..color = outlineColor
       ..style = PaintingStyle.stroke
       ..strokeWidth = 2.0;
 
@@ -112,13 +126,18 @@ class CellShapePainter extends CustomPainter {
     canvas.drawPath(path, paint);
 
     paint
-      ..color = color.withOpacity(0.2)
+      ..color = backgroundColor
       ..style = PaintingStyle.fill;
+    canvas.drawPath(path, paint);
+
+    paint.color = overlayColor;
     canvas.drawPath(path, paint);
   }
 
   @override
   bool shouldRepaint(CellShapePainter oldDelegate) {
-    return oldDelegate.color != color;
+    return oldDelegate.outlineColor != outlineColor ||
+        oldDelegate.backgroundColor != backgroundColor ||
+        oldDelegate.overlayColor != overlayColor;
   }
 }
