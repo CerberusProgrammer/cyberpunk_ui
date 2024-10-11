@@ -36,13 +36,13 @@ class CyberpunkFilledCard extends StatelessWidget {
   final Color accentColor;
 
   const CyberpunkFilledCard({
-    Key? key,
+    super.key,
     required this.title,
     required this.subtitle,
     required this.content,
     this.icon,
     this.accentColor = Colors.redAccent,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
