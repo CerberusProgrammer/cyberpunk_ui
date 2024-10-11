@@ -1,3 +1,4 @@
+import 'package:cyberpunk_ui/v2/cell.shape.dart';
 import 'package:flutter/material.dart';
 
 class Cell extends StatefulWidget {
@@ -69,8 +70,8 @@ class _CellState extends State<Cell> with SingleTickerProviderStateMixin {
             child: IntrinsicWidth(
               child: Container(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 32,
-                  vertical: 8,
+                  horizontal: 16,
+                  vertical: 4,
                 ),
                 alignment: Alignment.center,
                 child: Row(
@@ -99,50 +100,5 @@ class _CellState extends State<Cell> with SingleTickerProviderStateMixin {
         ),
       ),
     );
-  }
-}
-
-class CellShapePainter extends CustomPainter {
-  final Color outlineColor;
-  final Color backgroundColor;
-  final Color overlayColor;
-
-  CellShapePainter({
-    required this.outlineColor,
-    required this.backgroundColor,
-    required this.overlayColor,
-  });
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = outlineColor
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2.0;
-
-    final path = Path();
-    path.moveTo(0, 0);
-    path.lineTo(size.width, 0);
-    path.lineTo(size.width, size.height - 12);
-    path.lineTo(size.width - 12, size.height);
-    path.lineTo(0, size.height);
-    path.close();
-
-    canvas.drawPath(path, paint);
-
-    paint
-      ..color = backgroundColor
-      ..style = PaintingStyle.fill;
-    canvas.drawPath(path, paint);
-
-    paint.color = overlayColor;
-    canvas.drawPath(path, paint);
-  }
-
-  @override
-  bool shouldRepaint(CellShapePainter oldDelegate) {
-    return oldDelegate.outlineColor != outlineColor ||
-        oldDelegate.backgroundColor != backgroundColor ||
-        oldDelegate.overlayColor != overlayColor;
   }
 }
