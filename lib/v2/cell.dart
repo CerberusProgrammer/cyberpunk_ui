@@ -30,10 +30,10 @@ class _CellState extends State<Cell> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
     _controller = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 200));
+        vsync: this, duration: const Duration(milliseconds: 150));
     _outlineColorTween = ColorTween(
-            begin: widget.color.withOpacity(0.2),
-            end: widget.color.withOpacity(0.7))
+            begin: widget.color.withOpacity(0.3),
+            end: widget.color.withOpacity(1))
         .animate(_controller);
     _overlayColorTween = ColorTween(
             begin: widget.color.withOpacity(0.0),
@@ -74,15 +74,20 @@ class _CellState extends State<Cell> with SingleTickerProviderStateMixin {
                 ),
                 alignment: Alignment.center,
                 child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     if (widget.icon != null)
-                      Icon(widget.icon, color: Colors.black),
+                      Icon(
+                        widget.icon,
+                        color: _isPressed ? Colors.black : widget.color,
+                      ),
                     if (widget.icon != null) const SizedBox(width: 8.0),
                     Text(
                       widget.text,
-                      style: const TextStyle(
-                        color: Colors.black,
+                      style: TextStyle(
+                        color: _isPressed ? Colors.black : widget.color,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
