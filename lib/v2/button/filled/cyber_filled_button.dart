@@ -38,7 +38,9 @@ class _CyberFilledButtonState extends State<CyberFilledButton>
   void initState() {
     super.initState();
     _controller = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 150));
+      vsync: this,
+      duration: const Duration(milliseconds: 150),
+    );
     _outlineColorTween = ColorTween(
             begin: widget.outlineColor.withOpacity(0.3),
             end: widget.outlineColor.withOpacity(1))
