@@ -9,6 +9,8 @@ class CyberTextButton extends StatefulWidget {
   final Color backgroundColor;
   final Color onClickedColor;
   final CyberBorderType borderType;
+  final bool showDecorationLine;
+  final double decorationLineLength;
   final VoidCallback onTap;
 
   const CyberTextButton({
@@ -19,6 +21,8 @@ class CyberTextButton extends StatefulWidget {
     this.outlineColor = const Color.fromARGB(255, 247, 79, 73),
     this.backgroundColor = const Color.fromARGB(255, 14, 14, 23),
     this.onClickedColor = const Color.fromARGB(255, 14, 14, 23),
+    this.showDecorationLine = false,
+    this.decorationLineLength = 20,
     this.borderType = CyberBorderType.right,
     required this.onTap,
   });
@@ -77,6 +81,8 @@ class _CyberTextButtonState extends State<CyberTextButton>
                     ? widget.outlineColor.withOpacity(0.7)
                     : _overlayColorTween.value!,
                 borderType: widget.borderType,
+                showDecorationLine: widget.showDecorationLine,
+                decorationLineLength: widget.decorationLineLength,
               ),
               child: IntrinsicWidth(
                 child: Container(
