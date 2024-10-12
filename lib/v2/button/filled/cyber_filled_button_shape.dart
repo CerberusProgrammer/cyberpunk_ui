@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
 
+enum CyberBorderType {
+  left,
+  right,
+}
+
 class CyberFilledButtonShape extends CustomPainter {
   final Color outlineColor;
   final Color backgroundColor;
   final Color overlayColor;
+  final CyberBorderType borderType;
 
   CyberFilledButtonShape({
     required this.outlineColor,
     required this.backgroundColor,
     required this.overlayColor,
+    required this.borderType,
   });
 
   @override
@@ -19,11 +26,20 @@ class CyberFilledButtonShape extends CustomPainter {
       ..strokeWidth = 2.0;
 
     final path = Path();
-    path.moveTo(0, 0);
-    path.lineTo(size.width, 0);
-    path.lineTo(size.width, size.height - 8);
-    path.lineTo(size.width - 8, size.height);
-    path.lineTo(0, size.height);
+    if (borderType == CyberBorderType.right) {
+      path.moveTo(0, 0);
+      path.lineTo(size.width, 0);
+      path.lineTo(size.width, size.height - 8);
+      path.lineTo(size.width - 8, size.height);
+      path.lineTo(0, size.height);
+    } else {
+      path.moveTo(8, 0);
+      path.lineTo(size.width, 0);
+      path.lineTo(size.width, size.height);
+      path.lineTo(8, size.height);
+      path.lineTo(0, size.height - 8);
+      path.lineTo(0, 0);
+    }
     path.close();
 
     canvas.drawPath(path, paint);
@@ -41,6 +57,7 @@ class CyberFilledButtonShape extends CustomPainter {
   bool shouldRepaint(CyberFilledButtonShape oldDelegate) {
     return oldDelegate.outlineColor != outlineColor ||
         oldDelegate.backgroundColor != backgroundColor ||
-        oldDelegate.overlayColor != overlayColor;
+        oldDelegate.overlayColor != overlayColor ||
+        oldDelegate.borderType != borderType;
   }
 }
