@@ -1,6 +1,7 @@
 import 'package:cyberpunk_ui/v2/button/filled/cyber_filled_button.dart';
 import 'package:cyberpunk_ui/v2/button/cyber_button_shape.dart';
 import 'package:cyberpunk_ui/v2/button/text/cyber_text_button.dart';
+import 'package:cyberpunk_ui/v2/progress/cyber_linear_progress.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -72,6 +73,9 @@ class MainApp extends StatelessWidget {
                   ),
                 ],
               ),
+              CyberLinearProgress(
+                title: Text('Loading...'),
+              )
             ],
           ),
         ),
