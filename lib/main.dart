@@ -1,4 +1,4 @@
-import 'package:cyberpunk_ui/v2/cell.dart';
+import 'package:cyberpunk_ui/v2/button/filled/cyber_filled_button.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -18,11 +18,14 @@ class MainApp extends StatelessWidget {
       home: Scaffold(
         body: Column(
           children: [
-            Cell(text: 'a', onTap: () {}),
-            Cell(text: 'aa', onTap: () {}),
-            Cell(text: 'aaa', onTap: () {}),
-            Cell(text: 'aaaaaaaaa', onTap: () {}),
-            Cell(icon: Icons.ac_unit, text: 'aceptar', onTap: () {}),
+            CyberFilledButton(text: 'a', onTap: () {}),
+            CyberFilledButton(text: 'aa', onTap: () {}),
+            CyberFilledButton(text: 'aaa', onTap: () {}),
+            CyberFilledButton(text: 'aaaaaaaaa', onTap: () {}),
+            CyberFilledButton(
+                icon: Icons.ac_unit, text: 'aceptar', onTap: () {}),
+            CyberFilledButton(
+                icon: Icons.ac_unit, text: 'aceptar', onTap: () {}),
           ],
         ),
       ),
