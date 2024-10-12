@@ -9,7 +9,6 @@ class CyberTextButton extends StatefulWidget {
   final Color backgroundColor;
   final Color onClickedColor;
   final CyberBorderType borderType;
-
   final VoidCallback onTap;
 
   const CyberTextButton({
