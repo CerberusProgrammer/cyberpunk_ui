@@ -1,5 +1,5 @@
 import 'package:cyberpunk_ui/v2/button/filled/cyber_filled_button.dart';
-import 'package:cyberpunk_ui/v2/button/filled/cyber_filled_button_shape.dart';
+import 'package:cyberpunk_ui/v2/button/cyber_button_shape.dart';
 import 'package:cyberpunk_ui/v2/button/text/cyber_text_button.dart';
 import 'package:flutter/material.dart';
 
