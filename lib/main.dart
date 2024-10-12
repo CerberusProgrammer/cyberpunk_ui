@@ -40,17 +40,35 @@ class MainApp extends StatelessWidget {
               ),
               Row(
                 children: [
-                  CyberTextButton(
-                    icon: Icons.ac_unit,
-                    text: 'cancelar',
-                    onTap: () {},
-                    borderType: CyberBorderType.left,
+                  Expanded(
+                    child: CyberTextButton(
+                      icon: Icons.arrow_back_ios,
+                      onTap: () {},
+                      borderType: CyberBorderType.left,
+                    ),
                   ),
                   CyberTextButton(
-                    icon: Icons.ac_unit,
-                    text: 'aceptar',
+                    icon: Icons.arrow_forward_ios,
                     onTap: () {},
                     borderType: CyberBorderType.right,
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: CyberTextButton(
+                      title: 'BACK',
+                      onTap: () {},
+                      borderType: CyberBorderType.left,
+                    ),
+                  ),
+                  Expanded(
+                    child: CyberTextButton(
+                      title: 'NEXT',
+                      onTap: () {},
+                      borderType: CyberBorderType.right,
+                    ),
                   ),
                 ],
               ),
