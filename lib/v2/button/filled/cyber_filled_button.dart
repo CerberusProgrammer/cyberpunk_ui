@@ -1,4 +1,4 @@
-import 'package:cyberpunk_ui/v2/button/filled/cyber_filled_button_shape.dart';
+import 'package:cyberpunk_ui/v2/button/cyber_button_shape.dart';
 import 'package:flutter/material.dart';
 
 class CyberFilledButton extends StatefulWidget {
@@ -70,7 +70,7 @@ class _CyberFilledButtonState extends State<CyberFilledButton>
           child: AnimatedBuilder(
             animation: _controller,
             builder: (context, child) => CustomPaint(
-              painter: CyberFilledButtonShape(
+              painter: CyberButtonShape(
                   outlineColor: _isPressed
                       ? widget.outlineColor.withOpacity(1)
                       : _outlineColorTween.value!,
