@@ -2,7 +2,7 @@ import 'package:cyberpunk_ui/v2/button/cyber_button_shape.dart';
 import 'package:flutter/material.dart';
 
 class CyberTextButton extends StatefulWidget {
-  final String text;
+  final String? title;
   final IconData? icon;
   final Color foregroundColor;
   final Color outlineColor;
@@ -14,9 +14,9 @@ class CyberTextButton extends StatefulWidget {
 
   const CyberTextButton({
     super.key,
-    required this.text,
+    this.title,
     this.icon,
-    this.foregroundColor = const Color.fromARGB(255, 247, 79, 73),
+    this.foregroundColor = const Color.fromARGB(255, 94, 247, 255),
     this.outlineColor = const Color.fromARGB(255, 247, 79, 73),
     this.backgroundColor = const Color.fromARGB(255, 14, 14, 23),
     this.onClickedColor = const Color.fromARGB(255, 14, 14, 23),
@@ -99,15 +99,16 @@ class _CyberTextButtonState extends State<CyberTextButton>
                               : widget.foregroundColor,
                         ),
                       if (widget.icon != null) const SizedBox(width: 8.0),
-                      Text(
-                        widget.text,
-                        style: TextStyle(
-                          color: _isPressed
-                              ? widget.onClickedColor
-                              : widget.foregroundColor,
-                          fontWeight: FontWeight.bold,
+                      if (widget.title != null)
+                        Text(
+                          widget.title!,
+                          style: TextStyle(
+                            color: _isPressed
+                                ? widget.onClickedColor
+                                : widget.foregroundColor,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
                     ],
                   ),
                 ),
