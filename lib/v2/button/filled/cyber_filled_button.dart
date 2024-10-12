@@ -8,6 +8,7 @@ class CyberFilledButton extends StatefulWidget {
   final Color outlineColor;
   final Color backgroundColor;
   final Color onClickedColor;
+  final CyberBorderType borderType;
   final VoidCallback onTap;
 
   const CyberFilledButton({
@@ -18,6 +19,7 @@ class CyberFilledButton extends StatefulWidget {
     this.outlineColor = const Color.fromARGB(255, 247, 79, 73),
     this.backgroundColor = const Color.fromARGB(255, 14, 14, 23),
     this.onClickedColor = const Color.fromARGB(255, 14, 14, 23),
+    this.borderType = CyberBorderType.right,
     required this.onTap,
   });
 
@@ -49,59 +51,63 @@ class _CyberFilledButtonState extends State<CyberFilledButton>
 
   @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-      onHover: (event) {
-        _controller.forward();
-      },
-      onExit: (event) {
-        _controller.reverse();
-      },
-      child: GestureDetector(
-        onTapDown: (details) => setState(() => _isPressed = true),
-        onTapUp: (details) => setState(() => _isPressed = false),
-        onTapCancel: () => setState(() => _isPressed = false),
-        onTap: widget.onTap,
-        child: AnimatedBuilder(
-          animation: _controller,
-          builder: (context, child) => CustomPaint(
-            painter: CyberFilledButtonShape(
-                outlineColor: _isPressed
-                    ? widget.outlineColor.withOpacity(1)
-                    : _outlineColorTween.value!,
-                backgroundColor: widget.backgroundColor,
-                overlayColor: _isPressed
-                    ? widget.outlineColor.withOpacity(0.7)
-                    : _overlayColorTween.value!),
-            child: IntrinsicWidth(
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 4,
-                ),
-                alignment: Alignment.center,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    if (widget.icon != null)
-                      Icon(
-                        widget.icon,
-                        color: _isPressed
-                            ? widget.onClickedColor
-                            : widget.foregroundColor,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 1.0),
+      child: MouseRegion(
+        onHover: (event) {
+          _controller.forward();
+        },
+        onExit: (event) {
+          _controller.reverse();
+        },
+        child: GestureDetector(
+          onTapDown: (details) => setState(() => _isPressed = true),
+          onTapUp: (details) => setState(() => _isPressed = false),
+          onTapCancel: () => setState(() => _isPressed = false),
+          onTap: widget.onTap,
+          child: AnimatedBuilder(
+            animation: _controller,
+            builder: (context, child) => CustomPaint(
+              painter: CyberFilledButtonShape(
+                  outlineColor: _isPressed
+                      ? widget.outlineColor.withOpacity(1)
+                      : _outlineColorTween.value!,
+                  backgroundColor: widget.backgroundColor,
+                  overlayColor: _isPressed
+                      ? widget.outlineColor.withOpacity(0.7)
+                      : _overlayColorTween.value!,
+                  borderType: widget.borderType),
+              child: IntrinsicWidth(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 4,
+                  ),
+                  alignment: Alignment.center,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (widget.icon != null)
+                        Icon(
+                          widget.icon,
+                          color: _isPressed
+                              ? widget.onClickedColor
+                              : widget.foregroundColor,
+                        ),
+                      if (widget.icon != null) const SizedBox(width: 8.0),
+                      Text(
+                        widget.text,
+                        style: TextStyle(
+                          color: _isPressed
+                              ? widget.onClickedColor
+                              : widget.foregroundColor,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    if (widget.icon != null) const SizedBox(width: 8.0),
-                    Text(
-                      widget.text,
-                      style: TextStyle(
-                        color: _isPressed
-                            ? widget.onClickedColor
-                            : widget.foregroundColor,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
