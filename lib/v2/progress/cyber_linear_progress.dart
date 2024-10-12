@@ -7,7 +7,6 @@ class CyberLinearProgress extends StatefulWidget {
   final Color? valueColor;
   final double height;
   final bool hidePercentage;
-  final bool hideDecoration;
 
   const CyberLinearProgress({
     super.key,
@@ -17,7 +16,6 @@ class CyberLinearProgress extends StatefulWidget {
     this.valueColor = const Color.fromARGB(255, 247, 79, 73),
     this.hidePercentage = false,
     this.height = 6,
-    this.hideDecoration = false,
   }) : assert(value == null || (value >= 0.0 && value <= 1.0));
 
   @override
@@ -78,7 +76,6 @@ class _CyberLinearProgressState extends State<CyberLinearProgress>
             value: widget.value ?? _animation.value,
             backgroundColor: widget.backgroundColor!,
             valueColor: widget.valueColor!,
-            hideDecoration: widget.hideDecoration,
           ),
           child: Container(
             height: widget.height,
@@ -104,13 +101,11 @@ class _CyberLinearProgressPainter extends CustomPainter {
   final double value;
   final Color backgroundColor;
   final Color valueColor;
-  final bool hideDecoration;
 
   _CyberLinearProgressPainter({
     required this.value,
     required this.backgroundColor,
     required this.valueColor,
-    required this.hideDecoration,
   });
 
   @override
@@ -130,7 +125,6 @@ class _CyberLinearProgressPainter extends CustomPainter {
   bool shouldRepaint(_CyberLinearProgressPainter oldDelegate) {
     return oldDelegate.value != value ||
         oldDelegate.backgroundColor != backgroundColor ||
-        oldDelegate.valueColor != valueColor ||
-        oldDelegate.hideDecoration != hideDecoration;
+        oldDelegate.valueColor != valueColor;
   }
 }
