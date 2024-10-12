@@ -10,12 +10,16 @@ class CyberButtonShape extends CustomPainter {
   final Color backgroundColor;
   final Color overlayColor;
   final CyberBorderType borderType;
+  final bool showDecorationLine;
+  final double decorationLineLength;
 
   CyberButtonShape({
     required this.outlineColor,
     required this.backgroundColor,
     required this.overlayColor,
     required this.borderType,
+    this.showDecorationLine = false,
+    this.decorationLineLength = 20,
   });
 
   @override
@@ -51,6 +55,23 @@ class CyberButtonShape extends CustomPainter {
 
     paint.color = overlayColor;
     canvas.drawPath(path, paint);
+
+    if (showDecorationLine) {
+      paint
+        ..color = outlineColor
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 2.0;
+
+      final linePath = Path();
+      if (borderType == CyberBorderType.right) {
+        linePath.moveTo(size.width, size.height / 2);
+        linePath.lineTo(size.width - decorationLineLength, size.height / 2);
+      } else {
+        linePath.moveTo(0, size.height / 2);
+        linePath.lineTo(decorationLineLength, size.height / 2);
+      }
+      canvas.drawPath(linePath, paint);
+    }
   }
 
   @override
@@ -58,6 +79,7 @@ class CyberButtonShape extends CustomPainter {
     return oldDelegate.outlineColor != outlineColor ||
         oldDelegate.backgroundColor != backgroundColor ||
         oldDelegate.overlayColor != overlayColor ||
-        oldDelegate.borderType != borderType;
+        oldDelegate.borderType != borderType ||
+        oldDelegate.showDecorationLine != showDecorationLine;
   }
 }
