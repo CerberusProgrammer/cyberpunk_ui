@@ -1,6 +1,7 @@
 import 'package:cyberpunk_ui/v2/button/filled/cyber_filled_button.dart';
 import 'package:cyberpunk_ui/v2/button/cyber_button_shape.dart';
 import 'package:cyberpunk_ui/v2/button/text/cyber_text_button.dart';
+import 'package:cyberpunk_ui/v2/decorations/assembly_decoration.dart';
 import 'package:cyberpunk_ui/v2/progress/cyber_linear_progress.dart';
 import 'package:flutter/material.dart';
 
@@ -75,7 +76,9 @@ class MainApp extends StatelessWidget {
               ),
               CyberLinearProgress(
                 title: Text('Loading...'),
-              )
+              ),
+              AssemblyDecoration(
+                  color: Color.fromARGB(255, 247, 79, 73), isHovered: false),
             ],
           ),
         ),
