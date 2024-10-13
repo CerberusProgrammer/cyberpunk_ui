@@ -27,10 +27,12 @@ class _CyberSliderState extends State<CyberSlider> {
           value: _sliderValue,
           thumbBackgroundColor: const Color.fromARGB(255, 83, 6, 1),
           thumbOutlineColor: Colors.red,
-          linearFillColor: Colors.red,
-          linearOutlineColor: const Color.fromARGB(255, 78, 47, 45),
-          thumbText: '1',
-          thumbTextColor: Colors.cyan,
+          linearFillColor: Colors.blue,
+          linearOutlineColor: Colors.grey,
+          thumbText: 'Drag',
+          thumbTextColor: Colors.white,
+          sliderOutlineColor: Colors.black,
+          sliderBackgroundColor: Colors.white,
         ),
       ),
     );
@@ -45,6 +47,8 @@ class SliderPainter extends CustomPainter {
   final Color linearOutlineColor;
   final String thumbText;
   final Color thumbTextColor;
+  final Color sliderOutlineColor;
+  final Color sliderBackgroundColor;
 
   SliderPainter({
     required this.value,
@@ -54,13 +58,35 @@ class SliderPainter extends CustomPainter {
     required this.linearOutlineColor,
     required this.thumbText,
     required this.thumbTextColor,
+    required this.sliderOutlineColor,
+    required this.sliderBackgroundColor,
   });
 
   @override
   void paint(Canvas canvas, Size size) {
+    final paddingX = 2.0;
+    final paddingY = 1.0;
+
+    final sliderPath = Path()
+      ..moveTo(paddingX, paddingY)
+      ..lineTo(size.width - paddingX, paddingY)
+      ..lineTo(size.width - paddingX, size.height - paddingY - 8)
+      ..lineTo(size.width - paddingX - 8, size.height - paddingY)
+      ..lineTo(paddingX, size.height - paddingY)
+      ..close();
+
+    final sliderOutlinePaint = Paint()
+      ..color = sliderOutlineColor
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2;
+
+    final sliderBackgroundPaint = Paint()
+      ..color = sliderBackgroundColor
+      ..style = PaintingStyle.fill;
+
     final outlinePaint = Paint()
       ..color = linearOutlineColor
-      ..strokeWidth = 3
+      ..strokeWidth = 2
       ..style = PaintingStyle.stroke;
 
     final fillPaint = Paint()
@@ -76,15 +102,23 @@ class SliderPainter extends CustomPainter {
       ..color = thumbBackgroundColor
       ..style = PaintingStyle.fill;
 
-    canvas.drawLine(Offset(0, size.height / 2),
-        Offset(size.width, size.height / 2), outlinePaint);
+    canvas.drawPath(sliderPath, sliderBackgroundPaint);
 
-    canvas.drawLine(Offset(0, size.height / 2),
-        Offset(value / 100 * size.width, size.height / 2), fillPaint);
+    canvas.drawPath(sliderPath, sliderOutlinePaint);
+
+    final trackY = size.height / 2;
+    canvas.drawLine(Offset(paddingX, trackY),
+        Offset(size.width - paddingX, trackY), outlinePaint);
+
+    canvas.drawLine(
+        Offset(paddingX, trackY),
+        Offset(paddingX + (value / 100) * (size.width - 2 * paddingX), trackY),
+        fillPaint);
 
     final thumbWidth = 60.0;
     final thumbHeight = 30.0;
-    final thumbCenter = Offset(value / 100 * size.width, size.height / 2);
+    final thumbCenter =
+        Offset(paddingX + (value / 100) * (size.width - 2 * paddingX), trackY);
     final thumbPath = Path()
       ..moveTo(
           thumbCenter.dx - thumbWidth / 2, thumbCenter.dy - thumbHeight / 2)
@@ -113,6 +147,7 @@ class SliderPainter extends CustomPainter {
     textPainter.paint(canvas,
         thumbCenter - Offset(textPainter.width / 2, textPainter.height / 2));
 
+    // Draw the value text
     final valueTextPainter = TextPainter(
       text: TextSpan(
         text: value.round().toString(),
